@@ -30,15 +30,10 @@
     "lint": "eslint .",
     "test": "node --test"
   },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": "eslint:recommended"
-  },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "prettier": "^1.17.1"
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.4.1",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3"
   }
 }

@@ -1,7 +1,5 @@
 # postcss-value-parser
 
-[![Travis CI](https://travis-ci.org/TrySound/postcss-value-parser.svg)](https://travis-ci.org/TrySound/postcss-value-parser)
-
 Transforms CSS declaration values and at-rule parameters into a tree of nodes, and provides a simple traversal API.
 
 ## Usage

@@ -8,18 +8,17 @@
   ],
   "devDependencies": {
     "eslint": "^5.16.0",
-    "husky": "^2.3.0",
-    "lint-staged": "^8.1.7",
     "prettier": "^1.17.1",
     "tap-spec": "^5.0.0",
     "tape": "^4.10.2"
   },
   "scripts": {
-    "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --list-different",
-    "lint:js": "eslint . --cache",
-    "lint": "yarn lint:js && yarn lint:prettier",
-    "pretest": "yarn lint",
+    "format": "prettier --write \"**/*.{js,ts}\"",
+    "lint": "eslint .",
     "test": "tape test/*.js | tap-spec"
+  },
+  "engines": {
+    "node": ">= 8"
   },
   "eslintConfig": {
     "env": {
@@ -27,18 +26,6 @@
       "node": true
     },
     "extends": "eslint:recommended"
-  },
-  "lint-staged": {
-    "*.js": [
-      "eslint",
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "author": "Bogdan Chadkin <trysound@yandex.ru>",
   "license": "MIT",

@@ -6,23 +6,23 @@ describe("ValueParser", () => {
   test("i/o", () => {
     const tests = [
       " rgba( 34 , 45 , 54, .5 ) ",
-      "w1 w2 w6 \n f(4) ( ) () \t \"s't\" 'st\\\"2'"
+      "w1 w2 w6 \n f(4) ( ) () \t \"s't\" 'st\\\"2'",
     ];
 
-    tests.forEach(item => {
+    tests.forEach((item) => {
       equal(
         item,
         parser(item)
-          .walk(() => { })
+          .walk(() => {})
           .toString(),
-        JSON.stringify(item)
+        JSON.stringify(item),
       );
     });
   });
 
   test("walk should process all functions", () => {
     const result = [];
-    parser("fn( ) fn2( fn3())").walk(node => {
+    parser("fn( ) fn2( fn3())").walk((node) => {
       if (node.type === "function") {
         result.push(node);
       }
@@ -36,7 +36,7 @@ describe("ValueParser", () => {
         value: "fn",
         before: " ",
         after: "",
-        nodes: []
+        nodes: [],
       },
       {
         type: "function",
@@ -53,9 +53,9 @@ describe("ValueParser", () => {
             value: "fn3",
             before: "",
             after: "",
-            nodes: []
-          }
-        ]
+            nodes: [],
+          },
+        ],
       },
       {
         type: "function",
@@ -64,15 +64,15 @@ describe("ValueParser", () => {
         value: "fn3",
         before: "",
         after: "",
-        nodes: []
-      }
+        nodes: [],
+      },
     ]);
   });
 
   test("walk shouldn't process functions after falsy callback", () => {
     const result = [];
 
-    parser("fn( ) fn2( fn3())").walk(node => {
+    parser("fn( ) fn2( fn3())").walk((node) => {
       if (node.type === "function") {
         result.push(node);
         if (node.value === "fn2") {
@@ -90,7 +90,7 @@ describe("ValueParser", () => {
         value: "fn",
         before: " ",
         after: "",
-        nodes: []
+        nodes: [],
       },
       {
         type: "function",
@@ -107,17 +107,17 @@ describe("ValueParser", () => {
             value: "fn3",
             before: "",
             after: "",
-            nodes: []
-          }
-        ]
-      }
+            nodes: [],
+          },
+        ],
+      },
     ]);
   });
 
   test("walk shouldn't process nodes with defined non-function type", () => {
     const result = [];
 
-    parser("fn( ) fn2( fn3())").walk(node => {
+    parser("fn( ) fn2( fn3())").walk((node) => {
       if (node.type === "function" && node.value === "fn2") {
         node.type = "word";
       }
@@ -132,7 +132,7 @@ describe("ValueParser", () => {
         value: "fn",
         before: " ",
         after: "",
-        nodes: []
+        nodes: [],
       },
       { type: "space", sourceIndex: 5, sourceEndIndex: 6, value: " " },
       {
@@ -150,17 +150,17 @@ describe("ValueParser", () => {
             value: "fn3",
             before: "",
             after: "",
-            nodes: []
-          }
-        ]
-      }
+            nodes: [],
+          },
+        ],
+      },
     ]);
   });
 
   test("walk should process all functions with reverse mode", () => {
     const result = [];
 
-    parser("fn2( fn3())").walk(node => {
+    parser("fn2( fn3())").walk((node) => {
       if (node.type === "function") {
         result.push(node);
       }
@@ -174,7 +174,7 @@ describe("ValueParser", () => {
         value: "fn3",
         before: "",
         after: "",
-        nodes: []
+        nodes: [],
       },
       {
         type: "function",
@@ -191,10 +191,10 @@ describe("ValueParser", () => {
             value: "fn3",
             before: "",
             after: "",
-            nodes: []
-          }
-        ]
-      }
+            nodes: [],
+          },
+        ],
+      },
     ]);
   });
 });

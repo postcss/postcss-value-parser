@@ -2,31 +2,6 @@
   "name": "postcss-value-parser",
   "version": "4.2.0",
   "description": "Transforms css values and at-rule params into the tree",
-  "main": "lib/index.js",
-  "files": [
-    "lib"
-  ],
-  "devDependencies": {
-    "eslint": "^5.16.0",
-    "prettier": "^1.17.1",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.10.2"
-  },
-  "scripts": {
-    "format": "prettier --write \"**/*.{js,ts}\"",
-    "lint": "eslint .",
-    "test": "tape test/*.js | tap-spec"
-  },
-  "engines": {
-    "node": ">= 8"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": "eslint:recommended"
-  },
   "author": "Bogdan Chadkin <trysound@yandex.ru>",
   "license": "MIT",
   "homepage": "https://github.com/TrySound/postcss-value-parser",
@@ -41,5 +16,31 @@
   ],
   "bugs": {
     "url": "https://github.com/TrySound/postcss-value-parser/issues"
+  },
+  "engines": {
+    "node": ">= 22"
+  },
+  "packageManager": "pnpm@11.5.2",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts}\"",
+    "lint": "eslint .",
+    "test": "tape test/*.js | tap-spec"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true,
+      "node": true
+    },
+    "extends": "eslint:recommended"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "prettier": "^1.17.1",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.10.2"
   }
 }

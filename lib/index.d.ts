@@ -52,6 +52,18 @@ declare namespace postcssValueParser {
     nodes: Node[];
   }
 
+  interface InterpolationNode
+    extends BaseNode,
+      ClosableNode,
+      AdjacentAwareNode {
+    type: "interpolation";
+
+    /**
+     * Nodes inside the interpolation
+     */
+    nodes: Node[];
+  }
+
   interface SpaceNode extends BaseNode {
     type: "space";
   }
@@ -80,6 +92,7 @@ declare namespace postcssValueParser {
     | CommentNode
     | DivNode
     | FunctionNode
+    | InterpolationNode
     | SpaceNode
     | StringNode
     | UnicodeRangeNode
@@ -129,6 +142,13 @@ declare namespace postcssValueParser {
     walk(callback: WalkCallback, bubble?: boolean): this;
   }
 
+  interface ValueParserOptions {
+    /**
+     * Prefix used for interpolation, e.g. `#` for Sass interpolation.
+     */
+    interpolationPrefix?: string;
+  }
+
   interface ValueParser {
     /**
      * Decompose a CSS dimension into its numeric and unit part
@@ -167,8 +187,9 @@ declare namespace postcssValueParser {
      * Parse a CSS value into a series of nodes to operate on
      *
      * @param value The value to parse
+     * @param options Value parser options
      */
-    (value: string): ParsedValue;
+    (value: string, options?: ValueParserOptions): ParsedValue;
   }
 }
 

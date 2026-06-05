@@ -55,6 +55,27 @@ var tests = [
     fixture: "url(\n)"
   },
   {
+    message: "Should correctly process interpolation",
+    fixture: "#{url(\n)}",
+    options: {
+      interpolationPrefix: "#"
+    }
+  },
+  {
+    message: "Should correctly process interpolation with word",
+    fixture: "-#{url(\n)}",
+    options: {
+      interpolationPrefix: "#"
+    }
+  },
+  {
+    message: "Should correctly process interpolation with divider (/)",
+    fixture: "/#{url(\n)}",
+    options: {
+      interpolationPrefix: "#"
+    }
+  },
+  {
     message: "Should correctly process empty url with newline (LF)",
     fixture: "url(\n\n\n)"
   },
@@ -92,7 +113,11 @@ test("Stringify", function(t) {
   t.plan(tests.length + 4);
 
   tests.forEach(function(opts) {
-    t.equal(stringify(parse(opts.fixture)), opts.fixture, opts.message);
+    t.equal(
+      stringify(parse(opts.fixture, opts.options)),
+      opts.fixture,
+      opts.message
+    );
   });
 
   var tokens = parse(" rgba(12,  54, 65 ) ");

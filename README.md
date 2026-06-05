@@ -181,6 +181,22 @@ whether the first character in the argument is a quotation mark.
 ] }
 ```
 
+### interpolation
+
+An interpolation of value, e.g. Sass interpolation `#{rgb(0,0,0)}`.
+
+Interpolation nodes have nodes all other nodes nested within them.
+
+Additional properties:
+
+- **value**: Interpolation prefix, e.g. `#` in `#{rgb(0,0,0)}`.
+- **before**: Whitespace after the opening curly bracket and before the first value,
+  e.g. `  ` in `#{ rgb(0,0,0)}`.
+- **after**: Whitespace before the closing curly bracket and after the last value,
+  e.g. `  ` in `#{rgb(0,0,0)  }`.
+- **nodes**: More nodes representing the arguments to the interpolation.
+- **unclosed**: `true` if the curly bracket was not closed properly. e.g. `#{ unclosed-interpolation  `.
+
 ### unicode-range
 
 The unicode-range CSS descriptor sets the specific range of characters to be
@@ -240,9 +256,15 @@ The `callback` is invoked with three arguments: `callback(node, index, nodes)`.
 
 Returns the `valueParser` instance.
 
-### var parsed = valueParser(value)
+### var parsed = valueParser(value, options)
 
 Returns the parsed node tree.
+
+### options
+
+#### options.interpolationPrefix
+
+Prefix used for interpolation, e.g. `#` for Sass interpolation.
 
 ### parsed.nodes
 

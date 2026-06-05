@@ -1,7 +1,8 @@
-var test = require("tape");
-var unit = require("../lib/unit");
+const { describe, test } = require("node:test");
+const { deepEqual } = require("node:assert");
+const unit = require("../lib/unit");
 
-var tests = [
+const tests = [
   {
     fixture: ".23rem",
     expected: { number: ".23", unit: "rem" }
@@ -272,10 +273,10 @@ var tests = [
   }
 ];
 
-test("Unit", function(t) {
-  t.plan(tests.length);
-
-  tests.forEach(function(item) {
-    t.deepEqual(unit(item.fixture), item.expected);
+describe("Unit", () => {
+  tests.forEach(item => {
+    test(item.fixture, () => {
+      deepEqual(unit(item.fixture), item.expected);
+    });
   });
 });

@@ -1,7 +1,8 @@
-var test = require("tape");
-var parse = require("../lib/parse");
+const { describe, test } = require("node:test");
+const { deepEqual } = require("node:assert");
+const parse = require("../lib/parse");
 
-var tests = [
+const tests = [
   {
     message: "should correctly process empty input",
     fixture: "",
@@ -1655,10 +1656,10 @@ var tests = [
   }
 ];
 
-test("Parse", function(t) {
-  t.plan(tests.length);
-
-  tests.forEach(function(opts) {
-    t.deepEqual(parse(opts.fixture), opts.expected, opts.message);
+describe("Parse", () => {
+  tests.forEach(opts => {
+    test(opts.message, () => {
+      deepEqual(parse(opts.fixture), opts.expected);
+    });
   });
 });

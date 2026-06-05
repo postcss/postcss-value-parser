@@ -1,8 +1,9 @@
-var test = require("tape");
-var parse = require("../lib/parse");
-var stringify = require("../lib/stringify");
+const { describe, test } = require("node:test");
+const { equal } = require("node:assert");
+const parse = require("../lib/parse");
+const stringify = require("../lib/stringify");
 
-var tests = [
+const tests = [
   {
     message: "Should correctly add quotes",
     fixture:
@@ -88,17 +89,17 @@ var tests = [
   }
 ];
 
-test("Stringify", function(t) {
-  t.plan(tests.length + 4);
-
-  tests.forEach(function(opts) {
-    t.equal(stringify(parse(opts.fixture)), opts.fixture, opts.message);
+describe("Stringify", () => {
+  tests.forEach(opts => {
+    test(opts.message, () => {
+      equal(stringify(parse(opts.fixture)), opts.fixture, opts.message);
+    });
   });
 
-  var tokens = parse(" rgba(12,  54, 65 ) ");
+  const tokens = parse(" rgba(12,  54, 65 ) ");
 
-  t.equal(
-    stringify(tokens, function(node) {
+  equal(
+    stringify(tokens, node => {
       if (node.type === "function") {
         return (
           node.value +
@@ -113,8 +114,8 @@ test("Stringify", function(t) {
     " rgba[12,54,65] "
   );
 
-  t.equal(
-    stringify(tokens[1], function(node) {
+  equal(
+    stringify(tokens[1], node => {
       if (node.type === "function") {
         return (
           node.value +
@@ -130,10 +131,10 @@ test("Stringify", function(t) {
   );
 
   tokens[1].type = "word";
-  t.equal(stringify(tokens), " rgba ", "Shouldn't process nodes of work type");
+  equal(stringify(tokens), " rgba ", "Shouldn't process nodes of work type");
 
-  t.equal(
-    stringify(parse("calc(1px + var(--bar))"), function(node) {
+  equal(
+    stringify(parse("calc(1px + var(--bar))"), node => {
       if (node.type === "function" && node.value === "var") {
         return "10px";
       }

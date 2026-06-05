@@ -26,7 +26,7 @@
     "lib"
   ],
   "scripts": {
-    "format": "prettier --write \"**/*.{js,ts}\"",
+    "format": "prettier --write \"**/*.{js,ts,mjs}\"",
     "lint": "eslint .",
     "test": "node --test"
   },

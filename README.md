@@ -5,8 +5,8 @@ Transforms CSS declaration values and at-rule parameters into a tree of nodes, a
 ## Usage
 
 ```js
-var valueParser = require('postcss-value-parser');
-var cssBackgroundValue = 'url(foo.png) no-repeat 40px 73%';
+var valueParser = require("postcss-value-parser");
+var cssBackgroundValue = "url(foo.png) no-repeat 40px 73%";
 var parsedValue = valueParser(cssBackgroundValue);
 // parsedValue exposes an API described below,
 // e.g. parsedValue.walk(..), parsedValue.toString(), etc.
@@ -18,52 +18,53 @@ For example, parsing the value `rgba(233, 45, 66, .5)` will return the following
 {
   nodes: [
     {
-      type: 'function',
-      value: 'rgba',
-      before: '',
-      after: '',
+      type: "function",
+      value: "rgba",
+      before: "",
+      after: "",
       nodes: [
-        { type: 'word', value: '233' },
-        { type: 'div', value: ',', before: '', after: ' ' },
-        { type: 'word', value: '45' },
-        { type: 'div', value: ',', before: '', after: ' ' },
-        { type: 'word', value: '66' },
-        { type: 'div', value: ',', before: ' ', after: '' },
-        { type: 'word', value: '.5' }
-      ]
-    }
-  ]
+        { type: "word", value: "233" },
+        { type: "div", value: ",", before: "", after: " " },
+        { type: "word", value: "45" },
+        { type: "div", value: ",", before: "", after: " " },
+        { type: "word", value: "66" },
+        { type: "div", value: ",", before: " ", after: "" },
+        { type: "word", value: ".5" },
+      ],
+    },
+  ];
 }
 ```
 
 If you wanted to convert each `rgba()` value in `sourceCSS` to a hex value, you could do so like this:
 
 ```js
-var valueParser = require('postcss-value-parser');
+var valueParser = require("postcss-value-parser");
 
 var parsed = valueParser(sourceCSS);
 
 // walk() will visit all the of the nodes in the tree,
 // invoking the callback for each.
 parsed.walk(function (node) {
-
   // Since we only want to transform rgba() values,
   // we can ignore anything else.
-  if (node.type !== 'function' && node.value !== 'rgba') return;
+  if (node.type !== "function" && node.value !== "rgba") return;
 
   // We can make an array of the rgba() arguments to feed to a
   // convertToHex() function
-  var color = node.nodes.filter(function (node) {
-    return node.type === 'word';
-  }).map(function (node) {
-    return Number(node.value);
-  }); // [233, 45, 66, .5]
+  var color = node.nodes
+    .filter(function (node) {
+      return node.type === "word";
+    })
+    .map(function (node) {
+      return Number(node.value);
+    }); // [233, 45, 66, .5]
 
   // Now we will transform the existing rgba() function node
   // into a word node with the hex value
-  node.type = 'word';
+  node.type = "word";
   node.value = convertToHex(color);
-})
+});
 
 parsed.toString(); // #E92D42
 ```
@@ -152,14 +153,17 @@ empty value. For example, `(min-width: 700px)` parses to these nodes:
 ```js
 [
   {
-    type: 'function', value: '', before: '', after: '',
+    type: "function",
+    value: "",
+    before: "",
+    after: "",
     nodes: [
-      { type: 'word', value: 'min-width' },
-      { type: 'div', value: ':', before: '', after: ' ' },
-      { type: 'word', value: '700px' }
-    ]
-  }
-]
+      { type: "word", value: "min-width" },
+      { type: "div", value: ":", before: "", after: " " },
+      { type: "word", value: "700px" },
+    ],
+  },
+];
 ```
 
 `url()` functions can be parsed a little bit differently depending on
@@ -194,7 +198,7 @@ Node-specific properties:
 ## API
 
 ```js
-var valueParser = require('postcss-value-parser');
+var valueParser = require("postcss-value-parser");
 ```
 
 ### valueParser.unit(quantity)
@@ -211,7 +215,7 @@ Parses `quantity`, distinguishing the number from the unit. Returns an object li
 
 If the `quantity` argument cannot be parsed as a number, returns `false`.
 
-*This function does not parse complete values*: you cannot pass it `1px solid black` and expect `px` as
+_This function does not parse complete values_: you cannot pass it `1px solid black` and expect `px` as
 the unit. Instead, you should pass it single quantities only. Parse `1px solid black`, then pass it
 the stringified `1px` node (a `word` node) to parse the number and unit.
 
@@ -226,8 +230,8 @@ The `custom` function is called for each `node`; return a string to override the
 Walks each provided node, recursively walking all descendent nodes within functions.
 
 Returning `false` in the `callback` will prevent traversal of descendent nodes (within functions).
-You can use this feature to for shallow iteration, walking over only the *immediate* children.
-*Note: This only applies if `bubble` is `false` (which is the default).*
+You can use this feature to for shallow iteration, walking over only the _immediate_ children.
+_Note: This only applies if `bubble` is `false` (which is the default)._
 
 By default, the tree is walked from the outermost node inwards.
 To reverse the direction, pass `true` for the `bubble` argument.

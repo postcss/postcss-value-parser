@@ -18,7 +18,7 @@
     "test": "tape test/*.js | tap-spec"
   },
   "engines": {
-    "node": "8"
+    "node": ">= 8"
   },
   "eslintConfig": {
     "env": {

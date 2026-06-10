@@ -219,6 +219,17 @@ _This function does not parse complete values_: you cannot pass it `1px solid bl
 the unit. Instead, you should pass it single quantities only. Parse `1px solid black`, then pass it
 the stringified `1px` node (a `word` node) to parse the number and unit.
 
+Quantities of the form `2.rem` (no digits after the dot) are not valid CSS. In this case, instead of
+throwing an error, `unit()` returns the dot as part of the unit:
+
+```js
+// Given 2.rem 
+{
+  number: '2',
+  unit: '.rem'
+}
+```
+
 ### valueParser.stringify(nodes[, custom])
 
 Stringifies a node or array of nodes.

@@ -7,6 +7,9 @@ describe("ValueParser", () => {
     const tests = [
       " rgba( 34 , 45 , 54, .5 ) ",
       "w1 w2 w6 \n f(4) ( ) () \t \"s't\" 'st\\\"2'",
+      "/*/",
+      "a /*/ b",
+      "/*/ comment hack /**/",
     ];
 
     tests.forEach((item) => {

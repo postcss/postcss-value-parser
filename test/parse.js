@@ -1683,6 +1683,19 @@ const tests = [
       { type: "word", sourceIndex: 0, sourceEndIndex: 3, value: "U+Z" },
     ],
   },
+  {
+    message: "should not reuse the opening star to close a comment",
+    fixture: "/*/",
+    expected: [
+      {
+        type: "comment",
+        sourceIndex: 0,
+        sourceEndIndex: 3,
+        value: "/",
+        unclosed: true,
+      },
+    ],
+  },
 ];
 
 describe("Parse", () => {

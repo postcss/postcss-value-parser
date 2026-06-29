@@ -1554,6 +1554,19 @@ const tests = [
     ],
   },
   {
+    message: "should not treat the opening slash-star as its own terminator",
+    fixture: "/*/",
+    expected: [
+      {
+        type: "comment",
+        sourceIndex: 0,
+        sourceEndIndex: 3,
+        value: "/",
+        unclosed: true,
+      },
+    ],
+  },
+  {
     message: "should respect escape character",
     fixture: "Hawaii \\35 -0",
     expected: [

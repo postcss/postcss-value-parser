@@ -73,7 +73,7 @@ parsed.toString(); // #E92D42
 
 Each node is an object with these common properties:
 
-- **type**: The type of node (`word`, `string`, `div`, `space`, `comment`, or `function`).
+- **type**: The type of node (`word`, `string`, `div`, `space`, `comment`, `function`, or `unicode-range`).
   Each type is documented below.
 - **value**: Each node has a `value` property; but what exactly `value` means
   is specific to the node type. Details are documented for each type below.

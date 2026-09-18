@@ -1270,6 +1270,28 @@ const tests = [
     ],
   },
   {
+    message: "should parse url with nested parentheses",
+    fixture: "url(foo(bar))",
+    expected: [
+      {
+        type: "function",
+        sourceIndex: 0,
+        sourceEndIndex: 13,
+        value: "url",
+        before: "",
+        after: "",
+        nodes: [
+          {
+            type: "word",
+            sourceIndex: 4,
+            sourceEndIndex: 12,
+            value: "foo(bar)"
+          }
+        ]
+      }
+    ]
+  },
+  {
     message: "should parse empty url",
     fixture: "url()",
     expected: [

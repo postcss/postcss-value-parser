@@ -830,6 +830,112 @@ const tests = [
     ],
   },
   {
+    message: "should parse multiplication inside calc parentheses",
+    fixture: "calc((1*2))",
+    expected: [
+      {
+        type: "function",
+        sourceIndex: 0,
+        sourceEndIndex: 11,
+        value: "calc",
+        before: "",
+        after: "",
+        nodes: [
+          {
+            type: "function",
+            sourceIndex: 5,
+            sourceEndIndex: 10,
+            value: "",
+            before: "",
+            after: "",
+            nodes: [
+              { type: "word", sourceIndex: 6, sourceEndIndex: 7, value: "1" },
+              { type: "word", sourceIndex: 7, sourceEndIndex: 8, value: "*" },
+              { type: "word", sourceIndex: 8, sourceEndIndex: 9, value: "2" },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    message: "should parse multiplication before a nested function",
+    fixture: "calc((-1*var(--a)))",
+    expected: [
+      {
+        type: "function",
+        sourceIndex: 0,
+        sourceEndIndex: 19,
+        value: "calc",
+        before: "",
+        after: "",
+        nodes: [
+          {
+            type: "function",
+            sourceIndex: 5,
+            sourceEndIndex: 18,
+            value: "",
+            before: "",
+            after: "",
+            nodes: [
+              { type: "word", sourceIndex: 6, sourceEndIndex: 8, value: "-1" },
+              { type: "word", sourceIndex: 8, sourceEndIndex: 9, value: "*" },
+              {
+                type: "function",
+                sourceIndex: 9,
+                sourceEndIndex: 17,
+                value: "var",
+                before: "",
+                after: "",
+                nodes: [
+                  {
+                    type: "word",
+                    sourceIndex: 13,
+                    sourceEndIndex: 16,
+                    value: "--a",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    message:
+      "should keep multiplication inside a nested non-arithmetic function",
+    fixture: "calc(var(--a*b))",
+    expected: [
+      {
+        type: "function",
+        sourceIndex: 0,
+        sourceEndIndex: 16,
+        value: "calc",
+        before: "",
+        after: "",
+        nodes: [
+          {
+            type: "function",
+            sourceIndex: 5,
+            sourceEndIndex: 15,
+            value: "var",
+            before: "",
+            after: "",
+            nodes: [
+              {
+                type: "word",
+                sourceIndex: 9,
+                sourceEndIndex: 14,
+                value: "--a*b",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  {
     message: "should correctly parse division without spaces",
     fixture: "calc(1/2)",
     expected: [

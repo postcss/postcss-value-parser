@@ -1559,9 +1559,7 @@ const tests = [
     expected: [
       { type: "word", sourceIndex: 0, sourceEndIndex: 6, value: "Hawaii" },
       { type: "space", sourceIndex: 6, sourceEndIndex: 7, value: " " },
-      { type: "word", sourceIndex: 7, sourceEndIndex: 10, value: "\\35" },
-      { type: "space", sourceIndex: 10, sourceEndIndex: 11, value: " " },
-      { type: "word", sourceIndex: 11, sourceEndIndex: 13, value: "-0" },
+      { type: "word", sourceIndex: 7, sourceEndIndex: 13, value: "\\35 -0" },
     ],
   },
   {
